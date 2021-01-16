@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="us-ascii"?>
+<ioc xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" id="1b50897b-5ea0-4b35-96cd-507ea71640a9" last-modified="2021-01-16T15:17:51" xmlns="http://schemas.mandiant.com/2010/ioc">
+  <short_description>Suspicious_Processes_Writing_Startup</short_description>
+  <description>Looks for suspicious processes writing to a users Roaming Startup folder. Observed malware includes Quasar Rat and Jupyter malware.</description>
+  <authored_by>Lucas Acha</authored_by>
+  <authored_date>2021-01-16T14:55:31</authored_date>
+  <links>
+    <link rel="Md5">44f71739c34f5db76d61873b939ad59c</link>
+    <link rel="URL">http://security5magics.blogspot.com/2020/12/tracking-jupyter-malware.html</link>
+  </links>
+  <definition>
+    <Indicator operator="OR" id="9de73496-d867-435a-90db-87d55c74d9d0">
+      <IndicatorItem id="547e7ec6-0107-467c-990a-76ac877944ef" condition="contains">
+        <Context document="ProcessItem" search="ProcessItem/path" type="mir" />
+        <Content type="string">powershell.exe</Content>
+      </IndicatorItem>
+      <Indicator operator="OR" id="dde0f452-d1e9-4091-9a13-4e7a102b6548">
+        <IndicatorItem id="28c1b864-3427-4c7b-8c27-7f6d58f9cc59" condition="contains">
+          <Context document="ProcessItem" search="ProcessItem/path" type="mir" />
+          <Content type="string">wscript.exe</Content>
+        </IndicatorItem>
+        <Indicator operator="OR" id="0265aa35-678e-4913-ae77-85de8d959c62">
+          <IndicatorItem id="4835281a-d366-471d-bd0d-542bc6643c82" condition="contains">
+            <Context document="ProcessItem" search="ProcessItem/path" type="mir" />
+            <Content type="string">\Public\</Content>
+          </IndicatorItem>
+        </Indicator>
+      </Indicator>
+      <Indicator operator="AND" id="5361455d-7afd-432c-a384-045ebb059d3a">
+        <IndicatorItem id="affbfb3d-9d1b-4c6a-bea6-2a61e1c79896" condition="contains">
+          <Context document="FileItem" search="FileItem/FilenameCreated" type="mir" />
+          <Content type="date">\roaming\microsoft\windows\start menu\programs\startup</Content>
+        </IndicatorItem>
+      </Indicator>
+    </Indicator>
+  </definition>
+</ioc>
