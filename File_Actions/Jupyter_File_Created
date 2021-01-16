@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="us-ascii"?>
+<ioc xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" id="49ae8a91-062e-4a7f-90c3-6e148f361132" last-modified="2021-01-16T22:38:09" xmlns="http://schemas.mandiant.com/2010/ioc">
+  <short_description>Known_Jupyer_FIle_Drop</short_description>
+  <description>File that is written to victim host from a Jupyter malware compromise.</description>
+  <authored_by>Lucas Acha</authored_by>
+  <authored_date>2021-01-16T22:35:17</authored_date>
+  <links>
+    <link rel="MD5">ccbeadfde23b5bb6ecb1c5e77ba0976e</link>
+    <link rel="MD5">588d9b767978fcbe205c11242d6c5012</link>
+  </links>
+  <definition>
+    <Indicator operator="OR" id="9f6c242d-0b77-4139-8080-294031d2cedc">
+      <IndicatorItem id="1cbd4940-75f2-47d2-a637-c8069e3427eb" condition="is">
+        <Context document="FileItem" search="FileItem/FileName" type="mir" />
+        <Content type="string">solarmarker.dat</Content>
+      </IndicatorItem>
+    </Indicator>
+  </definition>
+</ioc>
